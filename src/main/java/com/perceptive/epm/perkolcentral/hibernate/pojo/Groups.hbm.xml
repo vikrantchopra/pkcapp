@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 23, 2012 6:50:22 PM by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="com.perceptive.epm.perkolcentral.hibernate.pojo.Groups" table="groups">
+        <id name="groupId" type="java.lang.Integer">
+            <column name="GroupId" />
+            <generator class="identity" />
+        </id>
+        <property name="groupName" type="string">
+            <column name="GroupName" length="500" not-null="true" />
+        </property>
+        <property name="groupDescription" type="string">
+            <column name="GroupDescription" length="1000" />
+        </property>
+        <property name="isActive" type="java.lang.Boolean">
+            <column name="IsActive" />
+        </property>
+        <property name="isRallyGroup" type="java.lang.Boolean">
+            <column name="IsRallyGroup" />
+        </property>
+        <set name="imagenowlicenseses" inverse="true" lazy="true" table="imagenowlicenses" fetch="select">
+            <key>
+                <column name="GroupId" not-null="true" />
+            </key>
+            <one-to-many class="com.perceptive.epm.perkolcentral.hibernate.pojo.Imagenowlicenses" />
+        </set>
+        <set name="employeegroupmaps" inverse="true" lazy="true" table="employeegroupmap" fetch="select">
+            <key>
+                <column name="GroupId" not-null="true" />
+            </key>
+            <one-to-many class="com.perceptive.epm.perkolcentral.hibernate.pojo.Employeegroupmap" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 23, 2012 6:50:22 PM by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="com.perceptive.epm.perkolcentral.hibernate.pojo.Employee" table="employee">
+        <id name="employeeId" type="long">
+            <column name="EmployeeId" />
+            <generator class="assigned" />
+        </id>
+        <property name="employeeUid" type="string">
+            <column name="EmployeeUID" length="100" not-null="true" />
+        </property>
+        <property name="employeeName" type="string">
+            <column name="EmployeeName" length="1000" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="Email" length="1000" not-null="true" />
+        </property>
+        <property name="jobTitle" type="string">
+            <column name="JobTitle" length="1000" />
+        </property>
+        <property name="mobileNumber" type="string">
+            <column name="MobileNumber" length="100" />
+        </property>
+        <property name="manager" type="string">
+            <column name="Manager" length="1000" />
+        </property>
+        <property name="managerEmail" type="string">
+            <column name="ManagerEmail" length="1000" />
+        </property>
+        <property name="extensionNum" type="string">
+            <column name="ExtensionNum" length="100" />
+        </property>
+        <property name="workspace" type="string">
+            <column name="Workspace" length="1000" />
+        </property>
+        <property name="isActive" type="boolean">
+            <column name="IsActive" not-null="true" />
+        </property>
+        <set name="employeelicensemappings" inverse="true" lazy="true" table="employeelicensemapping" fetch="select">
+            <key>
+                <column name="EmployeeId" not-null="true" />
+            </key>
+            <one-to-many class="com.perceptive.epm.perkolcentral.hibernate.pojo.Employeelicensemapping" />
+        </set>
+        <set name="employeegroupmaps" inverse="true" lazy="true" table="employeegroupmap" fetch="select">
+            <key>
+                <column name="EmployeeId" not-null="true" />
+            </key>
+            <one-to-many class="com.perceptive.epm.perkolcentral.hibernate.pojo.Employeegroupmap" />
+        </set>
+        <set name="imagenowlicensesesForRequestedByEmployeeId" inverse="true" lazy="true" table="imagenowlicenses" fetch="select">
+            <key>
+                <column name="RequestedByEmployeeId" not-null="true" />
+            </key>
+            <one-to-many class="com.perceptive.epm.perkolcentral.hibernate.pojo.Imagenowlicenses" />
+        </set>
+        <set name="imagenowlicensesesForProvidedByEmployeeId" inverse="true" lazy="true" table="imagenowlicenses" fetch="select">
+            <key>
+                <column name="ProvidedByEmployeeId" />
+            </key>
+            <one-to-many class="com.perceptive.epm.perkolcentral.hibernate.pojo.Imagenowlicenses" />
+        </set>
+        <set name="employeerolemappings" inverse="true" lazy="true" table="employeerolemapping" fetch="select">
+            <key>
+                <column name="EmployeeId" not-null="true" />
+            </key>
+            <one-to-many class="com.perceptive.epm.perkolcentral.hibernate.pojo.Employeerolemapping" />
+        </set>
+    </class>
+</hibernate-mapping>

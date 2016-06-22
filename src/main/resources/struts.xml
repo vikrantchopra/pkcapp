@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true"/>
+    <package name="perkolkatacentralAjax" extends="perkolkatacentral" namespace="/ajax">
+        <action name="allEmployeesList" class="springManagedEmployeeDetailsAction" method="executeGetAllEmployees">
+            <result name="success" type="json">
+                <param name="noCache">true</param>
+            </result>
+        </action>
+        <action name="allEmployeesListByTeam" class="springManagedEmployeeDetailsAction"
+                method="executeEmployeesByTeamAjax">
+            <result name="success" type="json">
+                <param name="noCache">true</param>
+            </result>
+        </action>
+        <action name="allEmployeesListByLicense" class="springManagedEmployeeDetailsAction"
+                method="executeEmployeesByLicenseAjax">
+            <result name="success" type="json">
+                <param name="noCache">true</param>
+            </result>
+        </action>
+        <action name="ajaxEmailList" class="springManagedMiscAjaxAction"
+                method="executeGetAllEmails">
+            <result type="stream">
+                <param name="contentType">text/plain</param>
+                <param name="inputName">inputStream</param>
+            </result>
+        </action>
+        <action name="ajaxHeartBeat" class="springManagedMiscAjaxAction"
+                method="executeHeartBeat">
+            <result type="stream">
+                <param name="contentType">text/plain</param>
+                <param name="inputName">inputStream</param>
+            </result>
+        </action>
+        <action name="ajaxAllEmployeeList" class="springManagedEmployeeDetailsAction"
+                method="executeGetAllEmployeesAtOnce">
+            <result name="success" type="json">
+                <param name="noCache">true</param>
+            </result>
+        </action>
+    </package>
+    <package name="perkolkatacentral" extends="struts-default,json-default" namespace="/">
+        <result-types>
+            <result-type name="tiles"
+                         class="org.apache.struts2.views.tiles.TilesResult"/>
+        </result-types>
+
+        <interceptors>
+            <interceptor name="SessionCheckInterceptor" class="springManagedSessionCheckInterceptor"/>
+            <interceptor-stack name="PerKolkataInterceptorStack">
+                <interceptor-ref name="SessionCheckInterceptor"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="PerKolkataInterceptorStack"/>
+
+        <global-results>
+            <result name="perKolkataExceptionHandler" type="chain">
+                <param name="actionName">actionUnhandledExceptionHandler</param>
+                <param name="namespace">/</param>
+            </result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="com.perceptive.epm.perkolcentral.common.exception.ExceptionWrapper"
+                               result="perKolkataExceptionHandler">
+            </exception-mapping>
+        </global-exception-mappings>
+
+        <action name="loginView">
+            <interceptor-ref name="defaultStack"/>
+            <result name="success" type="tiles">login</result>
+        </action>
+        <action name="home">
+            <result name="success" type="tiles">home</result>
+        </action>
+        <action name="employees">
+            <result name="success" type="tiles">employees</result>
+        </action>
+        <action name="employeesByTeamView" class="springManagedEmployeesByTeamAction"
+                method="executeEmployeesByTeamView">
+            <result name="success" type="tiles">employeesByTeam</result>
+        </action>
+        <action name="showPage" class="springManagedShowPageAction" method="executeShowPage">
+            <result name="success" type="tiles">showPage</result>
+        </action>
+        <action name="showLicenseSummary" class="springManagedLicenseAction" method="executeLicenseSummaryView">
+            <result name="success" type="tiles">licenseSummary</result>
+        </action>
+        <action name="scrumTeams" class="springManagedScrumTeamAction" method="executeShowScrumTeams">
+            <result name="success" type="tiles">scrumTeams</result>
+        </action>
+        <action name="employeeGroupMapping" class="springManagedEmployeeGroupMapAction"
+                method="executeEmployeeGroupMapView">
+            <result name="success" type="tiles">employeeGroupMap</result>
+        </action>
+        <action name="updateEmployeeGroupMapping" class="springManagedEmployeeGroupMapAction"
+                method="executeUpdateGroupMap">
+            <result name="success" type="redirectAction">employeeGroupMapping</result>
+        </action>
+        <action name="viewImageNowLicenseRequest" class="springManagedImageNowLicenseAction"
+                method="executeImageNowLicenseRequestView">
+            <result name="success" type="tiles">imageNowLicense</result>
+        </action>
+        <action name="imageNowLicenseRequest" class="springManagedImageNowLicenseAction"
+                method="executeImageNowLicenseRequest">
+            <interceptor-ref name="PerKolkataInterceptorStack"/>
+            <interceptor-ref name="token"/>
+            <result name="success" type="chain">imageNowLicenseRequestedByMe</result>
+            <result name="error" type="tiles">imageNowLicense</result>
+            <result name="invalid.token" type="redirectAction">
+                <param name="dupsub">true</param>
+                <param name="actionName">viewImageNowLicenseRequest</param>
+            </result>
+        </action>
+        <action name="imageNowLicenseToProvide" class="springManagedImageNowLicenseAction"
+                method="executeImageNowLicensesToProvide">
+            <result name="success" type="tiles">imageNowLicenseRequestList</result>
+        </action>
+        <action name="imageNowLicenseRequestedByMe" class="springManagedImageNowLicenseAction"
+                method="executeImageNowLicensesRequestedByMe">
+            <result name="success" type="tiles">imageNowLicenseRequestList</result>
+        </action>
+        <action name="cancelImageNowLicense" class="springManagedImageNowLicenseAction"
+                method="executeCancelImageNowLicenseRequest">
+            <result name="success" type="chain">imageNowLicenseToProvide</result>
+        </action>
+        <action name="provideImageNowLicense" class="springManagedImageNowLicenseAction"
+                method="executeProvideImageNowLicenseRequest">
+            <result name="success" type="chain">imageNowLicenseToProvide</result>
+        </action>
+        <action name="imageNowLicenseRequestSysFpFileDownload" class="springManagedImageNowLicenseAction"
+                method="executeSysFPFileDownLoad">
+            <result name="success" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">sysFpFileInputStream</param>
+                <param name="contentDisposition">attachment;filename="${imagenowlicenses.fileName}"</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+        <action name="excelReport" class="springManagedExcelReportAction"
+                method="execute">
+            <result name="success" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">reportInputStream</param>
+                <param name="contentDisposition">attachment;filename="${reportName}"</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+        <action name="viewReports">
+            <result name="success" type="tiles">reports</result>
+        </action>
+        <action name="rebuildCache" class="springManagedCacheRebuildAction" method="executeCacheRebuild">
+            <result type="tiles">cacheCreate</result>
+        </action>
+        <action name="viewTrainingSchedule" class="springManagedTrainingCalendarCreationAction" method="executeViewTrngCal">
+            <result name="success" type="tiles">trainingSchedule</result>
+        </action>
+        <action name="createTrainingSchedule" class="springManagedTrainingCalendarCreationAction" method="executeCreateTrngCal">
+            <interceptor-ref name="PerKolkataInterceptorStack"/>
+            <interceptor-ref name="token"/>
+            <result name="success" type="tiles">trainingSchedule</result>
+            <result name="invalid.token" type="redirectAction">
+                <param name="dupsub">true</param>
+                <param name="actionName">viewTrainingSchedule</param>
+            </result>
+        </action>
+        <action name="viewEmployeeLicenseMap" class="springManagedEmployeeLicenseMapAction"
+                method="executeEmployeeLicenseView">
+            <result name="success" type="tiles">employeeLicenseMap</result>
+        </action>
+        <action name="updateEmployeeLicenseMapping" class="springManagedEmployeeLicenseMapAction"
+                method="executeUpdateEmployeeLicense">
+            <result name="success" type="redirectAction">viewEmployeeLicenseMap</result>
+        </action>
+        <action name="actionUnhandledExceptionHandler"
+                class="com.perceptive.epm.perkolcentral.action.ActionUnhandledExceptionHandler">
+            <result name="ERROR" type="tiles">globalError</result>
+            <!-- Used only if there is an error trying to log the exception -->
+        </action>
+    </package>
+</struts>

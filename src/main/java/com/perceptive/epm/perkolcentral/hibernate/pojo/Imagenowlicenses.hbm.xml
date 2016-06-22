@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 23, 2012 6:50:22 PM by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="com.perceptive.epm.perkolcentral.hibernate.pojo.Imagenowlicenses" table="imagenowlicenses">
+        <id name="imageNowLicenseRequestId" type="string">
+            <column name="ImageNowLicenseRequestId" length="100" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="employeeByProvidedByEmployeeId" class="com.perceptive.epm.perkolcentral.hibernate.pojo.Employee" fetch="select">
+            <column name="ProvidedByEmployeeId" />
+        </many-to-one>
+        <many-to-one name="groups" class="com.perceptive.epm.perkolcentral.hibernate.pojo.Groups" fetch="select">
+            <column name="GroupId" not-null="true" />
+        </many-to-one>
+        <many-to-one name="employeeByRequestedByEmployeeId" class="com.perceptive.epm.perkolcentral.hibernate.pojo.Employee" fetch="select">
+            <column name="RequestedByEmployeeId" not-null="true" />
+        </many-to-one>
+        <property name="imageNowVersion" type="string">
+            <column name="ImageNowVersion" length="100" not-null="true" />
+        </property>
+        <property name="numberOfLicenses" type="long">
+            <column name="NumberOfLicenses" not-null="true" />
+        </property>
+        <property name="fileName" type="string">
+            <column name="FileName" length="1000" not-null="true" />
+        </property>
+        <property name="licenseRequestedOn" type="timestamp">
+            <column name="LicenseRequestedOn" length="19" not-null="true" />
+        </property>
+        <property name="licenseProvidedOn" type="timestamp">
+            <column name="LicenseProvidedOn" length="19" />
+        </property>
+        <property name="isProvided" type="boolean">
+            <column name="IsProvided" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

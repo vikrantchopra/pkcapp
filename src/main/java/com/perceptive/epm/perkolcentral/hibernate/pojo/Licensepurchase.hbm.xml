@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 23, 2012 6:50:22 PM by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="com.perceptive.epm.perkolcentral.hibernate.pojo.Licensepurchase" table="licensepurchase">
+        <id name="licensePurchaseId" type="java.lang.Long">
+            <column name="LicensePurchaseId" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="licensemaster" class="com.perceptive.epm.perkolcentral.hibernate.pojo.Licensemaster" fetch="select">
+            <column name="LicenseTypeId" not-null="true" />
+        </many-to-one>
+        <property name="licensePurchaseDate" type="date">
+            <column name="LicensePurchaseDate" length="10" not-null="true" />
+        </property>
+        <property name="numberOfLicenses" type="int">
+            <column name="NumberOfLicenses" not-null="true" />
+        </property>
+        <property name="licensePurchaseDescription" type="string">
+            <column name="LicensePurchaseDescription" length="10000" />
+        </property>
+    </class>
+</hibernate-mapping>

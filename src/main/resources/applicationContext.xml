@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+     http://www.springframework.org/schema/aop
+     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+     http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring
+     http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+    <tx:annotation-driven transaction-manager="transactionManager" mode="aspectj"/>
+    <ehcache:annotation-driven cache-manager="ehCacheManager"/>
+    <task:annotation-driven/>
+
+    <bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:applicationContext-ehCache.xml"/>
+    </bean>
+    <bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:pkc.properties"/>
+    </bean>
+    <bean id="DataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <!--Dev DB-->
+        
+        <property name="url"
+                  value="${dev.database.url}"/>
+        <property name="username" value="${dev.database.username}"/>
+        <property name="password" value="${dev.database.password}"/>
+        <property name="maxActive" value="${dev.database.maxActive}"/>
+        <property name="maxIdle" value="${dev.database.maxIdle}"/>
+        <property name="initialSize" value="${dev.database.initialSize}"/>
+        <property name="validationQuery" value="${dev.database.validationQuery}"/>
+       
+        <!--Prod DB-->
+
+     <!-- <property name="url"
+               value="${prod.database.url}"/>
+     <property name="username" value="${prod.database.username}"/>
+     <property name="password" value="${prod.database.password}"/>
+     <property name="maxActive" value="${prod.database.maxActive}"/>
+     <property name="initialSize" value="${prod.database.initialSize}"/>
+     <property name="validationQuery" value="${prod.database.validationQuery}"/> -->
+
+ </bean>
+    <bean id="UnitTestDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <!--Dev DB-->
+        <property name="url"
+                  value="${dev.database.url}"/>
+        <property name="username" value="${dev.database.username}"/>
+        <property name="password" value="${dev.database.password}"/>
+        <property name="maxActive" value="${dev.database.maxActive}"/>
+        <property name="maxIdle" value="${dev.database.maxIdle}"/>
+        <property name="initialSize" value="${dev.database.initialSize}"/>
+        <property name="validationQuery" value="${dev.database.validationQuery}"/>
+    </bean>
+ <bean id="HibernateSessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+     <property name="dataSource" ref="DataSource"/>
+     <property name="configLocation">
+         <value>
+             classpath:hibernate.cfg.xml
+         </value>
+     </property>
+ </bean>
+ <bean id="hibernateTemplate"
+       class="org.springframework.orm.hibernate3.HibernateTemplate">
+     <property name="sessionFactory" ref="HibernateSessionFactory"/>
+ </bean>
+ <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+     <property name="sessionFactory" ref="HibernateSessionFactory"/>
+ </bean>
+
+ <!--Spring managed Struts2 Action-->
+    <bean id="springManagedEmployeeDetailsAction"
+          class="com.perceptive.epm.perkolcentral.action.ajax.EmployeeDetailsAction" scope="prototype">
+        <property name="employeeBL" ref="springManagedEmployeeBL"/>
+    </bean>
+    <bean id="springManagedEmployeesByTeamAction"
+          class="com.perceptive.epm.perkolcentral.action.EmployeesByTeamAction" scope="prototype">
+        <property name="groupsBL" ref="springManagedGroupsBL"/>
+    </bean>
+    <bean id="springManagedShowPageAction" class="com.perceptive.epm.perkolcentral.action.ShowPageAction"
+          scope="prototype">
+        <property name="pagesBL" ref="springManagedPagesBL"/>
+        <property name="httpClientTemplate" ref="springManagedhttpClient"/>
+    </bean>
+    <bean id="springManagedLicenseAction" class="com.perceptive.epm.perkolcentral.action.LicenseAction"
+          scope="prototype">
+        <property name="licensesBL" ref="springManagedLicensesBL"/>
+    </bean>
+    <bean id="springManagedScrumTeamAction" class="com.perceptive.epm.perkolcentral.action.ScrumTeamAction"
+          scope="prototype">
+        <property name="employeeBL" ref="springManagedEmployeeBL"/>
+        <property name="groupsBL" ref="springManagedGroupsBL"/>
+    </bean>
+    <bean id="springManagedMiscAjaxAction" class="com.perceptive.epm.perkolcentral.action.ajax.MiscAjaxAction"
+          scope="prototype">
+        <property name="employeeBL" ref="springManagedEmployeeBL"/>
+    </bean>
+    <bean id="springManagedEmployeeGroupMapAction"
+          class="com.perceptive.epm.perkolcentral.action.EmployeeGroupMapAction" scope="prototype">
+        <property name="groupsBL" ref="springManagedGroupsBL"/>
+        <property name="employeeBL" ref="springManagedEmployeeBL"/>
+    </bean>
+    <bean id="springManagedImageNowLicenseAction" class="com.perceptive.epm.perkolcentral.action.ImageNowLicenseAction"
+          scope="prototype">
+        <property name="groupsBL" ref="springManagedGroupsBL"/>
+        <property name="employeeBL" ref="springManagedEmployeeBL"/>
+        <property name="imageNowLicenseBL" ref="springManagedImageNowLicenseBL"/>
+    </bean>
+    <bean id="springManagedExcelReportAction" class="com.perceptive.epm.perkolcentral.action.ExcelReportAction"
+          scope="prototype">
+        <property name="excelReportBL" ref="springManagedExcelReportBL"/>
+        <property name="pathToExcelReportTemplateFolder">
+            <value>/excelReportTemplate</value>
+        </property>
+    </bean>
+    <bean id="springManagedEmployeeLicenseMapAction"
+          class="com.perceptive.epm.perkolcentral.action.EmployeeLicenseMapAction" scope="prototype">
+        <property name="employeeBL" ref="springManagedEmployeeBL"/>
+        <property name="licensesBL" ref="springManagedLicensesBL"/>
+    </bean>
+    <bean id="springManagedCacheRebuildAction" class="com.perceptive.epm.perkolcentral.action.CacheRebuildAction"
+          scope="prototype">
+        <property name="cacheBL" ref="springManagedCacheBL"/>
+    </bean>
+    <bean id="springManagedTrainingCalendarCreationAction"
+          class="com.perceptive.epm.perkolcentral.action.TrainingCalendarCreationAction"
+          scope="prototype">
+        <property name="trainingBL" ref="springManagedTrainingBL"/>
+    </bean>
+    <!--Spring managed Struts2 Action-->
+
+    <!--Data Accessor-->
+    <bean id="springManagedEmployeeDataAccessor"
+          class="com.perceptive.epm.perkolcentral.dataaccessor.EmployeeDataAccessor">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+    </bean>
+    <bean id="springManagedGroupsAccessor"
+          class="com.perceptive.epm.perkolcentral.dataaccessor.GroupsAccessor">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+    </bean>
+    <bean id="springManagedPageDataAccessor" class="com.perceptive.epm.perkolcentral.dataaccessor.PageDataAccessor">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+    </bean>
+    <bean id="springManagedEmployeeLicenseDataAccessor"
+          class="com.perceptive.epm.perkolcentral.dataaccessor.EmployeeLicenseDataAccessor">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+    </bean>
+    <bean id="springManagedLicenseMasterDataAccessor"
+          class="com.perceptive.epm.perkolcentral.dataaccessor.LicenseMasterDataAccessor">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+    </bean>
+    <bean id="springManagedLicensePurchaseDataAccessor"
+          class="com.perceptive.epm.perkolcentral.dataaccessor.LicensePurchaseDataAccessor">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+    </bean>
+    <bean id="springManagedImageNowLicenseDataAccessor"
+          class="com.perceptive.epm.perkolcentral.dataaccessor.ImageNowLicenseDataAccessor">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+    </bean>
+    <!--Data Accessor-->
+    <!--Business Logic-->
+    <bean id="springManagedEmployeeBL" class="com.perceptive.epm.perkolcentral.bl.EmployeeBL">
+        <property name="employeeDataAccessor" ref="springManagedEmployeeDataAccessor"/>
+        <property name="groupsBL" ref="springManagedGroupsBL"/>
+        <property name="email" ref="springManagedSimpleEmail"/>
+        <property name="luceneUtil" ref="springManagedLuceneUtil"/>
+    </bean>
+    <bean id="springManagedGroupsBL" class="com.perceptive.epm.perkolcentral.bl.GroupsBL">
+        <property name="groupsAccessor" ref="springManagedGroupsAccessor"/>
+    </bean>
+    <bean id="springManagedPagesBL" class="com.perceptive.epm.perkolcentral.bl.PagesBL">
+        <property name="pageDataAccessor" ref="springManagedPageDataAccessor"/>
+    </bean>
+    <bean id="springManagedLicensesBL" class="com.perceptive.epm.perkolcentral.bl.LicensesBL">
+        <property name="employeeLicenseDataAccessor" ref="springManagedEmployeeLicenseDataAccessor"/>
+        <property name="licenseMasterDataAccessor" ref="springManagedLicenseMasterDataAccessor"/>
+        <property name="licensePurchaseDataAccessor" ref="springManagedLicensePurchaseDataAccessor"/>
+    </bean>
+    <bean id="springManagedImageNowLicenseBL" class="com.perceptive.epm.perkolcentral.bl.ImageNowLicenseBL">
+        <property name="emailHost" value="${mail.server}"/>
+        <property name="fileUploadPath" value="${lic.file.upload.path}"/>
+        <property name="imageNowLicenseDataAccessor" ref="springManagedImageNowLicenseDataAccessor"/>
+        <property name="employeeBL" ref="springManagedEmployeeBL"/>
+    </bean>
+    <bean id="springManagedExcelReportBL" class="com.perceptive.epm.perkolcentral.bl.ExcelReportBL">
+        <property name="employeeBL" ref="springManagedEmployeeBL"/>
+        <property name="groupsBL" ref="springManagedGroupsBL"/>
+        <property name="licensesBL" ref="springManagedLicensesBL"/>
+    </bean>
+    <bean id="springManagedCacheBL" class="com.perceptive.epm.perkolcentral.bl.CacheBL">
+        <property name="employeeBL" ref="springManagedEmployeeBL"/>
+        <property name="groupsBL" ref="springManagedGroupsBL"/>
+    </bean>
+    <bean id="springManagedTrainingBL" class="com.perceptive.epm.perkolcentral.bl.TrainingBL" init-method="initTraining"
+          scope="prototype">
+        <property name="email"  ref="springManagedSimpleEmail"/>
+        <property name="employeeBL" ref="springManagedEmployeeBL"/>
+        <property name="configFilePath" value="${per.kol.ctrl.configfilepath}"/>
+    </bean>
+    <bean id="springManagedEmployeeSyncBL" class="com.perceptive.epm.perkolcentral.bl.EmployeeSyncBL" scope="prototype">
+        <property name="employeeBL" ref="springManagedEmployeeBL"/>
+        <property name="ldapTemplate" ref="springManagedLdapTemplate"/>
+    </bean>
+    <!--Business Logic-->
+
+    <!--Interceptors-->
+    <bean id="springManagedSessionCheckInterceptor"
+          class="com.perceptive.epm.perkolcentral.interceptors.SessionCheckInterceptor">
+        <property name="employeeBL" ref="springManagedEmployeeBL"/>
+    </bean>
+
+
+    <!--Spring Utils-->
+    <bean id="springManagedhttpClient" class="org.springbyexample.httpclient.HttpClientTemplate">
+    </bean>
+    <bean id="springManagedCustomLDAPAuthoritiesPopulator"
+          class="com.perceptive.epm.perkolcentral.common.utils.CustomLDAPAuthoritiesPopulator">
+        <property name="employeeBL" ref="springManagedEmployeeBL"/>
+    </bean>
+    <!--Spring LDAP Portion-->
+    <bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
+        <property name="url" value="${ldap.url}"/>
+        <property name="base" value="o=Lexmark"/>
+    </bean>
+    <bean id="springManagedLdapTemplate" class="org.springframework.ldap.core.LdapTemplate">
+        <constructor-arg ref="contextSource"/>
+    </bean>
+    <!--Spring job scheduling-->
+
+    <bean name="springManagedNightlyEmployeeSyncJob"
+          class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="com.perceptive.epm.perkolcentral.common.jobs.NightlyEmployeeSyncJob"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="employeeSyncBL" value-ref="springManagedEmployeeSyncBL"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="springManagedNightlyEmployeeSyncJobTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="springManagedNightlyEmployeeSyncJob"/>
+        <property name="cronExpression" value="0 0 8,21 * * ?"/>
+    </bean>
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="springManagedNightlyEmployeeSyncJobTrigger"/>
+                <ref bean="springManagedCacheBuildTrigger"/>
+                <!-- other triggers you have may be included here -->
+            </list>
+        </property>
+    </bean>
+    <bean id="springManagedCacheBuildSchedulerFactoryBean"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="springManagedCacheBuildTrigger"/>
+                <!-- other triggers you have may be included here -->
+            </list>
+        </property>
+    </bean>
+
+    <bean name="springManagedCreateCacheJob"
+          class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="com.perceptive.epm.perkolcentral.common.jobs.CreateCacheJob"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="cacheBL" value-ref="springManagedCacheBL"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="springManagedCacheBuildTrigger"
+          class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+        <property name="jobDetail" ref="springManagedCreateCacheJob"/>
+        <property name="startDelay" value="5000"/>
+        <property name="repeatCount" value="0"/>
+    </bean>
+    <!--Spring mail config-->
+    <bean id="springManagedSimpleEmail" class="org.apache.commons.mail.HtmlEmail" scope="prototype">
+        <property name="hostName" value="${mail.server}"/>
+    </bean>
+    <!--Lucene config-->
+    <bean id="springManagedRAMDirectory" class="org.apache.lucene.store.RAMDirectory"/>
+    <bean id="springManagedLuceneUtil" class="com.perceptive.epm.perkolcentral.common.utils.LuceneUtil">
+        <property name="ramDirectory" ref="springManagedRAMDirectory"/>
+    </bean>
+    <!--======================================================================================================================-->
+</beans>

@@ -1,0 +1,210 @@
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'war'
+apply plugin: 'groovy'
+
+// change default directory from build to target
+buildDir = 'target'
+
+ext {// Version = ''
+		activationVersion = '1.1.1'
+		aopAllianceVersion = '1.0.0'
+		asmVersion = '3.3'
+		aspectjRuntimeVersion = '1.6.12.RELEASE'
+		cglibVersion = '2.2.2'
+		commonsBeanutilVersion = '1.8.3'
+		commonsCodeVersion = '1.3'
+		commonsCollectionsVersion = '3.2'
+		commonsDbcpVersion = '1.4'
+		commonsDigesterVersion = '1.8'
+		commonsEmailVersion = '1.2'
+		commonsFileuploadVersion = '1.2.2'
+		commonsHttpclientVersion = '3.0.1'
+		commonsIoVersion = '2.0.1'
+		commonsLangVersion = '2.5'
+		commonsLoggingVersion = '1.1.1'
+		commonsPoolVersion = '1.5.2'
+		dom4jVersion = '1.6.1'
+		ehcacheCoreVersion = '2.6.0'
+		ehcacheSpringAnnotationsVersion = '1.2.0'
+		filterbuilderVersion = '2.1'
+		freemarkerVersion = '2.3.18'
+		gsonVersion = '2.2.2'
+		guavaVersion = 'r09'
+		hibernateVersion = '4.2.2.Final'
+		jpaVersion = '1.0.1.Final'
+		htmllexerVersion = '2.1'
+		htmlParserVersion = '1.6'
+		javassistVersion = '3.11.0.GA'
+		jstlVersion = '1.2.1'
+		jtaVersion = '1.1'
+		jtdsVersion = '1.2'
+		junitVersion = '4.10'
+		log4jVersion = '1.2.16'
+		luceneVersion = '3.6.1'
+		mailVersion = '1.4.5'
+		mysqlVersion = '5.1.21-bin'
+		ognlVersion = '3.0.3'
+		springVersion = '3.0.6.RELEASE'
+		poiVersion = '3.8-20120326'
+		quartzVersion = '1.6.6'
+		sbeutilVersion = '1.2.3'
+		servletapiVersion = '2.5'
+		sitecapturerVersion = '2.1'
+		slf4jVersion = '1.5.8'
+		springLdapVersion = '1.3.1.RELEASE-all'
+		springSecurityVersion = '3.0.7.RELEASE'
+		staxVersion = '1.0.1'
+		struts2Version = '2.3.1.1'
+		strutsJqueryVersion = '3.3.1'
+		thumbelinaVersion = '2.1'
+		tilesVersion = '2.0.6'
+		xmlBeansVersion = '2.3.0'
+		xworkVersion = '2.3.1.1'
+
+	
+		//archiveBaseName = 'pkcapp'
+}
+
+war {
+	archiveName 'EnterpriseSoftwareKolkata.war'
+}
+
+sourceCompatibility = 1.7
+group = 'com.perceptive.epm.perkolcentral'
+version = '1.0-SNAPSHOT'
+
+jar {
+	manifest {
+		attributes 'Implementation-Title' : 'Perceptive Kolkata Central', 'Implementation-Version' : version
+	}
+}
+
+
+
+repositories {
+	mavenLocal()
+	//mavenCentral()
+
+}
+
+configurations {
+	provided { extendsFrom compile}	
+}
+
+dependencies {
+	// compile group: '', name: '', version:
+	compile group: 'javax.activation', name: 'activation', version: activationVersion
+	compile group: 'asm', name: 'asm', version: asmVersion
+	compile group: 'asm', name: 'asm-commons', version: asmVersion
+	compile group: 'asm', name: 'asm-tree', version: asmVersion
+	compile group: 'cglib', name: 'cglib-nodep', version: cglibVersion
+	compile group: 'org.aopalliance', name: 'com.springsource.org.aopalliance', version: aopAllianceVersion
+	compile group: 'org.aspectj', name: 'com.springsource.org.aspectj.runtime', version: aspectjRuntimeVersion
+
+	compile group: 'commons-beanutils', name: 'commons-beanutils', version: commonsBeanutilVersion
+	compile group: 'commons-codec', name: 'commons-codec', version: commonsCodeVersion
+	compile group: 'commons-collections', name: 'commons-collections', version: commonsCollectionsVersion
+	compile group: 'commons-dbcp', name: 'commons-dbcp', version: commonsDbcpVersion
+	compile group: 'commons-digester', name: 'commons-digester', version: commonsDigesterVersion
+	compile group: 'commons-email', name: 'commons-email', version: commonsEmailVersion
+	compile group: 'commons-fileupload', name: 'commons-fileupload', version: commonsFileuploadVersion
+	compile group: 'commons-httpclient', name: 'commons-httpclient', version: commonsHttpclientVersion
+	compile group: 'commons-io', name: 'commons-io', version: commonsIoVersion
+	compile group: 'commons-lang', name: 'commons-lang', version: commonsLangVersion
+	compile group: 'commons-logging', name: 'commons-logging', version: commonsLoggingVersion
+	compile group: 'commons-pool', name: 'commons-pool', version: commonsPoolVersion
+	compile group: 'dom4j', name: 'dom4j', version: dom4jVersion
+	compile group: 'net.sf.ehcache', name: 'ehcache-core', version: ehcacheCoreVersion
+	compile group: 'com.googlecode.ehcache-spring-annotations', name: 'ehcache-spring-annotations', version: ehcacheSpringAnnotationsVersion
+	compile group: 'org.htmlparser', name: 'filterbuilder', version: filterbuilderVersion
+	compile group: 'org.freemarker', name: 'freemarker', version: freemarkerVersion
+	compile group: 'com.google.code.gson', name: 'gson', version: gsonVersion
+	compile group: 'com.google.guava', name: 'guava', version: guavaVersion
+
+	/*compile group: 'org.hibernate', name: 'hibernate-core', version: hibernateVersion
+	compile group: 'org.hibernate', name: 'hibernate-jpa-2.0-api', version: jpaVersion*/
+	compile group: 'org.hibernate', name: 'hibernate3', version: '3.0'
+
+	compile group: 'log4j', name: 'log4j', version: log4jVersion
+	compile group: 'org.htmlparser', name: 'htmllexer', version: htmllexerVersion
+	compile group: 'org.htmlparser', name: 'htmlparser', version: htmlParserVersion
+	compile group: 'javassist', name: 'javassist', version: javassistVersion
+	compile group: 'org.glassfish.web', name: 'javax.servlet.jsp.jstl', version: jstlVersion
+	compile group: 'javax.transaction', name: 'jta', version: jtaVersion
+	compile group: 'net.sourceforge.jtds', name: 'jtds', version: jtdsVersion
+	compile group: 'junit', name: 'junit', version: junitVersion
+	compile group: 'org.apache.lucene', name: 'lucene-core', version: luceneVersion
+	compile group: 'javax.mail', name: 'mail', version: mailVersion
+	compile group: 'mysql', name: 'mysql-connector-java', version: mysqlVersion
+	compile group: 'ognl', name: 'ognl', version: ognlVersion
+
+
+	compile group: 'org.springframework', name: 'org.springframework.core', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.web', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.aop', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.asm', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.aspects', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.beans', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.context', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.context.support', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.expression', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.instrument', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.instrument.tomcat', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.jdbc', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.jms', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.orm', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.oxm', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.test', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.transaction', version: springVersion
+	compile group: 'org.springframework', name: 'org.springframework.web.struts', version: springVersion
+
+	//compile group: '', name: '', version:
+	compile group: 'org.apache.poi', name: 'poi', version: poiVersion
+	compile group: 'org.apache.poi', name: 'poi-examples', version: poiVersion
+	compile group: 'org.apache.poi', name: 'poi-excelant', version: poiVersion
+	compile group: 'org.apache.poi', name: 'poi-ooxml', version: poiVersion
+	compile group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: poiVersion
+	compile group: 'org.apache.poi', name: 'poi-scratchpad', version: poiVersion
+	compile group: 'org.quartz-scheduler', name: 'quartz', version: quartzVersion
+	compile group: 'org.springbyexample', name: 'sbe-util', version: sbeutilVersion
+
+	compile group: 'javax.servlet', name: 'servlet-api', version: servletapiVersion
+	compile group: 'javax.servlet', name: 'jsp-api', version: '2.1'
+
+	compile group: 'org.htmlparser', name: 'sitecapturer', version: sitecapturerVersion
+	compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
+	compile group: 'org.slf4j', name: 'slf4j-log4j12', version: slf4jVersion
+
+	compile group: 'org.springframework.ldap', name: 'spring-ldap', version: springLdapVersion
+	compile group: 'org.springframework.security', name: 'spring-security-acl', version: springSecurityVersion
+	compile group: 'org.springframework.security', name: 'spring-security-aspects', version: springSecurityVersion
+	compile group: 'org.springframework.security', name: 'spring-security-cas-client', version: springSecurityVersion
+	compile group: 'org.springframework.security', name: 'spring-security-config', version: springSecurityVersion
+	compile group: 'org.springframework.security', name: 'spring-security-core', version: springSecurityVersion
+	compile group: 'org.springframework.security', name: 'spring-security-ldap', version: springSecurityVersion
+	compile group: 'org.springframework.security', name: 'spring-security-openid', version: springSecurityVersion
+	compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: springSecurityVersion
+	compile group: 'org.springframework.security', name: 'spring-security-web', version: springSecurityVersion
+
+	compile group: 'stax', name: 'stax-api', version: staxVersion
+
+	compile group: 'org.apache.struts', name: 'struts2-core', version: struts2Version
+	compile group: 'org.apache.struts', name: 'struts2-json-plugin', version: struts2Version
+	compile group: 'org.apache.struts', name: 'struts2-spring-plugin', version: struts2Version
+	compile group: 'org.apache.struts', name: 'struts2-tiles-plugin', version: struts2Version
+	compile group: 'com.jgeppert.struts2.jquery', name: 'struts2-jquery-plugin', version: strutsJqueryVersion
+	compile group: 'com.jgeppert.struts2.jquery', name: 'struts2-jquery-grid-plugin', version: strutsJqueryVersion
+	compile group: 'org.apache.struts', name: 'xwork-core', version: xworkVersion
+
+	compile group: 'org.htmlparser', name: 'thumbelina', version: thumbelinaVersion
+	compile group: 'org.apache.tiles', name: 'tiles-api', version: tilesVersion
+	compile group: 'org.apache.tiles', name: 'tiles-core', version: tilesVersion
+	compile group: 'org.apache.tiles', name: 'tiles-jsp', version: tilesVersion
+
+	compile group: 'org.apache.xmlbeans', name: 'xmlbeans', version: xmlBeansVersion
+
+}
+
+
+

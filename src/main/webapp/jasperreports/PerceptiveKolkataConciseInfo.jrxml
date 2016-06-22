@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PerceptiveKolkataConciseInfo" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e93c27b2-07f7-4038-9654-69911b7a83bb">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#6495ED">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFD6FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#8FAFCC">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#CFDBE6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#8FAFCC">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#CFDBE6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="PerKolConciseInfo" uuid="f76a0c7c-e64f-4c6f-8f7c-3d48c57c4a3b">
+		<queryString language="SQL">
+			<![CDATA[SELECT DISTINCT
+  (emp.`EmployeeId`),
+  `EmployeeUID`,
+  `EmployeeName`,
+  `Email`,
+  `JobTitle`,
+  `MobileNumber`,
+  `Manager`,
+  `ExtensionNum`,
+  `Workspace`,
+  grp.`GroupName`
+FROM
+  `employee` emp
+  INNER JOIN `employeegroupmap` egm
+    ON emp.`EmployeeId` = egm.`EmployeeId`
+  INNER JOIN `groups` grp
+    ON grp.`GroupId` = egm.`GroupId`
+WHERE grp.`IsRallyGroup` = 1
+ORDER BY grp.`GroupName`,emp.`EmployeeName`]]>
+		</queryString>
+		<field name="EmployeeId" class="java.lang.Long"/>
+		<field name="EmployeeUID" class="java.lang.String"/>
+		<field name="EmployeeName" class="java.lang.String"/>
+		<field name="Email" class="java.lang.String"/>
+		<field name="JobTitle" class="java.lang.String"/>
+		<field name="MobileNumber" class="java.lang.String"/>
+		<field name="Manager" class="java.lang.String"/>
+		<field name="ExtensionNum" class="java.lang.String"/>
+		<field name="Workspace" class="java.lang.String"/>
+		<field name="GroupName" class="java.lang.String"/>
+		<group name="GroupName" isStartNewPage="true" keepTogether="true">
+			<groupExpression><![CDATA[$F{GroupName}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="PerKolConciseInfoNonRallyGroups" uuid="8b4fc24b-5fd8-4e02-a39e-c7807ac94800">
+		<queryString language="SQL">
+			<![CDATA[SELECT DISTINCT
+  (emp.`EmployeeId`),
+  `EmployeeUID`,
+  `EmployeeName`,
+  `Email`,
+  `JobTitle`,
+  `MobileNumber`,
+  `Manager`,
+  `ExtensionNum`,
+  `Workspace`,
+  grp.`GroupName`
+FROM
+  `employee` emp
+  INNER JOIN `employeegroupmap` egm
+    ON emp.`EmployeeId` = egm.`EmployeeId`
+  INNER JOIN `groups` grp
+    ON grp.`GroupId` = egm.`GroupId`
+WHERE grp.`IsRallyGroup` = 0
+ORDER BY grp.`GroupName`,emp.`EmployeeName`]]>
+		</queryString>
+		<field name="EmployeeId" class="java.lang.Long"/>
+		<field name="EmployeeUID" class="java.lang.String"/>
+		<field name="EmployeeName" class="java.lang.String"/>
+		<field name="Email" class="java.lang.String"/>
+		<field name="JobTitle" class="java.lang.String"/>
+		<field name="MobileNumber" class="java.lang.String"/>
+		<field name="Manager" class="java.lang.String"/>
+		<field name="ExtensionNum" class="java.lang.String"/>
+		<field name="Workspace" class="java.lang.String"/>
+		<field name="GroupName" class="java.lang.String"/>
+		<group name="GroupName">
+			<groupExpression><![CDATA[$F{GroupName}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString>
+		<![CDATA[select 1;]]>
+	</queryString>
+	<field name="1" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement uuid="90c58773-079f-4f4d-95e7-c2fb445aa3a2" x="702" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Georgia" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="aeb81721-c1aa-4d81-80d2-2d4644959f72" x="600" y="0" width="102" height="20"/>
+				<textElement>
+					<font fontName="Georgia" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Report generated On:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="d82526aa-a032-4389-8904-603e8c5a05bc" key="table 2" style="table 2" x="0" y="0" width="802" height="50" isPrintWhenDetailOverflows="true"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="PerKolConciseInfo" uuid="1a862259-6f9b-4361-a1fc-4907d505155f">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column uuid="c64daf4e-a18f-43b3-a978-58d2478f6abc" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1">
+								<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+									<reportElement uuid="c8ef2caa-6e58-4026-b1d6-ef07452c027f" x="0" y="0" width="90" height="21"/>
+									<textElement verticalAlignment="Middle">
+										<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[""+$F{GroupName}]]></textFieldExpression>
+								</textField>
+							</jr:cell>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="856e0aa4-e5df-4ec0-94a4-7c77efd74dec" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[EmployeeId]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="592c846e-d3cc-4cf1-8cd3-06921466d3f4" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{EmployeeId}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="bf8ea6e3-dd6a-45e9-a24c-3d3d05d24c2b" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="711587c8-0132-4f8d-b843-ac521974989a" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Short Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="1d6f532b-1c52-4f67-8c97-e8e520f35833" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{EmployeeUID}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="e7fbe6f5-fd04-4984-84a9-9039e1ad7409" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="f72eb877-086e-4c03-bcc8-b4a3c3f6d2c5" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Employee Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="e0fda20f-f2ed-4125-824e-ac0a5742bbc6" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{EmployeeName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="cd41c859-62ef-46ee-9952-547dff9a6cea" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="5dba03de-f172-4d53-980b-ee7f24a7ae57" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[E-Mail]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="1f931755-a022-4c71-b121-d6acb692a742" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Email}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="9f6f891c-fd4b-4b48-b363-d60bfb9c072b" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="d3abe162-6b59-4fa3-a686-9e58dbf1e51f" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[JobTitle]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="4b4fd5b6-6518-4316-a4e5-0a0d16f2b1ad" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{JobTitle}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="9f222b8a-db51-4aff-bb52-7da8771c900a" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="4fb16229-87fa-467c-8b4c-973ceeb33b47" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Mobile Number]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="95eb37a3-3160-4e4c-a96a-6617665d065d" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{MobileNumber}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="2333c4c7-8749-40de-b25d-2de4c6a8813f" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="b820f688-7d00-4b80-a1df-24619eef531f" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Manager]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="4fd79d88-5373-4d56-8dc4-2a417915314b" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Manager}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="50bbbdcf-e06d-4c03-90fe-a8f20030f66a" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="287f3dc9-bb74-4bf5-b150-6c3287afc962" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Extension Number]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="16b2fcac-11fb-4bbd-bec3-555d7c9827c7" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ExtensionNum}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="3ad8651c-7bff-4b7e-b7aa-f68827213c73" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="ed2a358f-dd37-44d6-b3a9-1b2176a8f894" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Workspace]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="3306347b-ab38-4cb0-8a43-725853b233d8" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Workspace}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="1">
+			<break>
+				<reportElement uuid="e87fc688-8565-4765-b2e5-a37a45abd5dd" x="0" y="0" width="802" height="1"/>
+			</break>
+		</band>
+		<band height="50">
+			<componentElement>
+				<reportElement uuid="d82526aa-a032-4389-8904-603e8c5a05bc" key="table 2" style="table 2" x="0" y="0" width="802" height="50" isPrintWhenDetailOverflows="true"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="PerKolConciseInfoNonRallyGroups" uuid="1a862259-6f9b-4361-a1fc-4907d505155f">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column uuid="c64daf4e-a18f-43b3-a978-58d2478f6abc" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1">
+								<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+									<reportElement uuid="c8ef2caa-6e58-4026-b1d6-ef07452c027f" x="0" y="0" width="90" height="21"/>
+									<textElement verticalAlignment="Middle">
+										<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[""+$F{GroupName}]]></textFieldExpression>
+								</textField>
+							</jr:cell>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="856e0aa4-e5df-4ec0-94a4-7c77efd74dec" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[EmployeeId]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="592c846e-d3cc-4cf1-8cd3-06921466d3f4" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{EmployeeId}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="bf8ea6e3-dd6a-45e9-a24c-3d3d05d24c2b" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="711587c8-0132-4f8d-b843-ac521974989a" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Short Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="1d6f532b-1c52-4f67-8c97-e8e520f35833" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{EmployeeUID}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="e7fbe6f5-fd04-4984-84a9-9039e1ad7409" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="f72eb877-086e-4c03-bcc8-b4a3c3f6d2c5" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Employee Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="e0fda20f-f2ed-4125-824e-ac0a5742bbc6" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{EmployeeName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="cd41c859-62ef-46ee-9952-547dff9a6cea" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="5dba03de-f172-4d53-980b-ee7f24a7ae57" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[E-Mail]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="1f931755-a022-4c71-b121-d6acb692a742" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Email}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="9f6f891c-fd4b-4b48-b363-d60bfb9c072b" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="d3abe162-6b59-4fa3-a686-9e58dbf1e51f" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[JobTitle]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="4b4fd5b6-6518-4316-a4e5-0a0d16f2b1ad" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{JobTitle}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="9f222b8a-db51-4aff-bb52-7da8771c900a" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="4fb16229-87fa-467c-8b4c-973ceeb33b47" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Mobile Number]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="95eb37a3-3160-4e4c-a96a-6617665d065d" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{MobileNumber}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="2333c4c7-8749-40de-b25d-2de4c6a8813f" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="b820f688-7d00-4b80-a1df-24619eef531f" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Manager]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="4fd79d88-5373-4d56-8dc4-2a417915314b" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Manager}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="50bbbdcf-e06d-4c03-90fe-a8f20030f66a" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="287f3dc9-bb74-4bf5-b150-6c3287afc962" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Extension Number]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="16b2fcac-11fb-4bbd-bec3-555d7c9827c7" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ExtensionNum}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="3ad8651c-7bff-4b7e-b7aa-f68827213c73" width="90">
+						<jr:groupHeader groupName="GroupName">
+							<jr:cell style="table 2_TH" height="21" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="ed2a358f-dd37-44d6-b3a9-1b2176a8f894" x="0" y="0" width="90" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isBold="true" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Workspace]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="3306347b-ab38-4cb0-8a43-725853b233d8" x="0" y="0" width="90" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Georgia" size="8" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Workspace}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement uuid="4dfe7016-994e-4abb-94a2-4529757271f6" x="337" y="1" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Georgia" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="b4cd3959-ff4b-4aab-83d6-b56941c3216a" x="417" y="1" width="40" height="20"/>
+				<textElement>
+					<font fontName="Georgia" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

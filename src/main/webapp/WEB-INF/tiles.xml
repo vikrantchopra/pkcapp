@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <definition name="baseLayout" template="/jsp/layout/BaseLayOut.jsp">
+        <put-attribute name="menu" value="/jsp/layout/Menu.jsp"/>
+    </definition>
+    <definition name="login" extends="baseLayout">
+        <put-attribute name="body" value="/jsp/Login.jsp"/>
+    </definition>
+    <definition name="home" extends="baseLayout">
+        <put-attribute name="body" value="/jsp/Home.jsp"/>
+    </definition>
+    <definition name="employees" extends="baseLayout">
+        <put-attribute name="body" value="/jsp/Employees.jsp"/>
+    </definition>
+    <definition name="employeesByTeam" extends="baseLayout">
+        <put-attribute name="body" value="/jsp/EmployeeByTeam.jsp"/>
+    </definition>
+    <definition name="showPage" extends="baseLayout">
+        <put-attribute name="body" value="/jsp/StaticPages.jsp"/>
+    </definition>
+    <definition name="licenseSummary" extends="baseLayout">
+        <put-attribute name="body" value="/jsp/LicenseSummary.jsp"/>
+    </definition>
+    <definition name="scrumTeams" extends="baseLayout">
+        <put-attribute name="body" value="/jsp/ScrumTeams.jsp"/>
+    </definition>
+    <definition name="employeeGroupMap" extends="baseLayout">
+        <put-attribute name="body" value="/jsp/EmployeeGroupMap.jsp"/>
+    </definition>
+    <definition name="imageNowLicense" extends="baseLayout">
+        <put-attribute name="body" value="/jsp/ImageNowLicense.jsp"/>
+    </definition>
+    <definition name="imageNowLicenseRequestList" extends="baseLayout">
+        <put-attribute name="body" value="/jsp/ImageNowLicenseRequestList.jsp"/>
+    </definition>
+    <definition name="reports" extends="baseLayout">
+        <put-attribute name="body" value="/jsp/Reports.jsp"/>
+    </definition>
+    <definition name="employeeLicenseMap" extends="baseLayout">
+        <put-attribute name="body" value="/jsp/EmployeeLicenseMap.jsp"/>
+    </definition>
+    <definition name="cacheCreate" extends="baseLayout">
+        <put-attribute name="body" value="/jsp/CacheCreate.jsp"/>
+    </definition>
+    <definition name="trainingSchedule" extends="baseLayout">
+        <put-attribute name="body" value="/jsp/TrainingSchedule.jsp"/>
+    </definition>
+     <definition name="globalError" extends="baseLayout">
+        <put-attribute name="body" value="/jsp/GlobalError.jsp"/>
+    </definition>
+</tiles-definitions>

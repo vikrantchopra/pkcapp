@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 23, 2012 6:50:22 PM by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="com.perceptive.epm.perkolcentral.hibernate.pojo.Pages" table="pages">
+        <id name="pageId" type="string">
+            <column name="PageID" length="200" />
+            <generator class="assigned" />
+        </id>
+        <property name="pageName" type="string">
+            <column name="PageName" length="200" not-null="true" />
+        </property>
+        <property name="pageUrl" type="string">
+            <column name="PageURL" length="2000" not-null="true" />
+        </property>
+        <property name="pageDescription" type="string">
+            <column name="PageDescription" length="10000" />
+        </property>
+    </class>
+</hibernate-mapping>

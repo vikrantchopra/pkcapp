@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false"> -->
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="classpath:ehcache.xsd" updateCheck="false">
+       
+    <!--
+     | Please see http://ehcache.sourceforge.net/documentation/configuration.html for
+     | detailed information on how to configurigure caches in this file
+     +-->
+    <!-- Location of persistent caches on disk -->
+    <diskStore path="D:\PerceptiveKolkata"/>
+
+    <defaultCache eternal="false" maxElementsInMemory="1000"
+                  overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
+                  timeToLiveSeconds="600" memoryStoreEvictionPolicy="LRU"/>
+
+    <cache name="EmployeeCache" eternal="true"
+           maxElementsInMemory="200" maxElementsOnDisk="1200" overflowToDisk="true" diskPersistent="false"
+           memoryStoreEvictionPolicy="LRU"/>
+
+    <cache name="GroupCache" eternal="true"
+           maxElementsInMemory="200" maxElementsOnDisk="1200" overflowToDisk="true" diskPersistent="false"
+           memoryStoreEvictionPolicy="LRU"/>
+
+    <cache name="EmployeeKeyedByGroupCache" eternal="true"
+           maxElementsInMemory="200" maxElementsOnDisk="1200" overflowToDisk="true" diskPersistent="false"
+           memoryStoreEvictionPolicy="LRU"/>
+</ehcache>

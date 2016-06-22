@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">perkoluser</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost/perceptivekolkatacentral</property>
+        <property name="hibernate.connection.username">perkoluser</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <mapping resource="com/perceptive/epm/perkolcentral/hibernate/pojo/Pages.hbm.xml" />
+        <mapping resource="com/perceptive/epm/perkolcentral/hibernate/pojo/Employeelicensemapping.hbm.xml" />
+        <mapping resource="com/perceptive/epm/perkolcentral/hibernate/pojo/Licensemaster.hbm.xml" />
+        <mapping resource="com/perceptive/epm/perkolcentral/hibernate/pojo/Groups.hbm.xml" />
+        <mapping resource="com/perceptive/epm/perkolcentral/hibernate/pojo/Rolemaster.hbm.xml" />
+        <mapping resource="com/perceptive/epm/perkolcentral/hibernate/pojo/Imagenowlicenses.hbm.xml" />
+        <mapping resource="com/perceptive/epm/perkolcentral/hibernate/pojo/Employee.hbm.xml" />
+        <mapping resource="com/perceptive/epm/perkolcentral/hibernate/pojo/Licensepurchase.hbm.xml" />
+        <mapping resource="com/perceptive/epm/perkolcentral/hibernate/pojo/Employeegroupmap.hbm.xml" />
+        <mapping resource="com/perceptive/epm/perkolcentral/hibernate/pojo/Employeerolemapping.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>
